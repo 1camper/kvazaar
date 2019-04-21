@@ -122,6 +122,11 @@ AS_CASE([$host_os],
                ]
          )
         ],
+        [linux*x32], [
+         ASFLAGS="$ASFLAGS -m x32 -f elfx32"
+         LDFLAGS="$LDFLAGS -Wl,-z,noexecstack"
+         LIBS="$LIBS -lrt"
+        ],
         [linux*|*kfreebsd*], [
          ASFLAGS="$ASFLAGS -f elf$BITS"
          LDFLAGS="$LDFLAGS -Wl,-z,noexecstack"
