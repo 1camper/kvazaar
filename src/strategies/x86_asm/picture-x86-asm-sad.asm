@@ -40,7 +40,7 @@ INIT_XMM avx
 ;r0 address of the first value(current frame)
 ;r1 address of the first value(reference frame)
 
-cglobal sad_4x4, 2, 2, 2
+cglobal sad_4x4, 2, 2, 2, "p", data1, "p", data2
 
     ;Load 16 bytes of both frames
     vmovdqu m0, [r0]
@@ -66,7 +66,7 @@ cglobal sad_4x4, 2, 2, 2
 ;r1 address of the first value(reference)
 ;r2 stride
 
-cglobal sad_4x4_stride, 3, 3, 2
+cglobal sad_4x4_stride, 3, 3, 2, "p", data1, "p", data2, "d-", stride
 
     ;Load 4 times 4 bytes of both frames
     vpinsrd m0, [r0], 0
@@ -96,7 +96,7 @@ cglobal sad_4x4_stride, 3, 3, 2
 ;r0 address of the first value(current)
 ;r1 address of the first value(reference)
 
-cglobal sad_8x8, 2, 2, 5
+cglobal sad_8x8, 2, 2, 5, "p", data1, "p", data2
 
     ;Load the first half of both frames
     vmovdqu m0, [r0]
@@ -141,7 +141,7 @@ cglobal sad_8x8, 2, 2, 5
 ;r1 address of the first value(reference)
 ;r2 stride
 
-cglobal sad_8x8_stride, 3, 3, 5
+cglobal sad_8x8_stride, 3, 3, 5, "p", data1, "p", data2, "d-", stride
 
     ;Zero m0 register
     vpxor m0, m0
@@ -217,7 +217,7 @@ cglobal sad_8x8_stride, 3, 3, 5
 ;r0 address of the first value(current)
 ;r1 address of the first value(reference)
 
-cglobal sad_16x16, 2, 2, 5
+cglobal sad_16x16, 2, 2, 5, "p", data1, "p", data2
 
     ;Zero m4
     vpxor m4, m4
@@ -261,7 +261,7 @@ cglobal sad_16x16, 2, 2, 5
 ;r1 address of the first value(reference)
 ;r2 stride
 
-cglobal sad_16x16_stride, 3, 3, 5
+cglobal sad_16x16_stride, 3, 3, 5, "p", data1, "p", data2, "d-", stride
 
     vpxor m4, m4
 
@@ -298,7 +298,7 @@ cglobal sad_16x16_stride, 3, 3, 5
 ;r0 address of the first value(current)
 ;r1 address of the first value(reference)
 ;r2 stride
-cglobal sad_32x32_stride, 3, 3, 5
+cglobal sad_32x32_stride, 3, 3, 5, "p", data1, "p", data2
     vpxor m4, m4
 
 	; Handle 2 lines per iteration
@@ -334,7 +334,7 @@ cglobal sad_32x32_stride, 3, 3, 5
 ;r0 address of the first value(current)
 ;r1 address of the first value(reference)
 ;r2 stride
-cglobal sad_64x64_stride, 3, 4, 5
+cglobal sad_64x64_stride, 3, 4, 5, "p", data1, "p", data2, "d-", stride
     vpxor m4, m4 ; sum accumulation register
 	mov r3, 4 ; number of iterations in the loop
 

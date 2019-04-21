@@ -418,7 +418,7 @@ INIT_XMM avx
 ;r0 address of the first value(current)
 ;r1 address of the first value(reference)
 
-cglobal satd_4x4, 2, 2, 6
+cglobal satd_4x4, 2, 2, 6, "p", org, "p", cur
 
     ;Load 8 bytes from memory and zero extend
     ;to 16-bit values. Calculate difference.
@@ -475,12 +475,11 @@ cglobal satd_4x4, 2, 2, 6
 ;Calculates SATD of a 8x8 block inside a frame with stride
 ;r0 address of the first value(reference)
 ;r1 address of the first value(current)
-;r2 stride
 
 %if ARCH_X86_64
-    cglobal satd_8x8, 4, 5, 16
+    cglobal satd_8x8, 2, 5, 16, "p", org, "p", cur
 %else
-    cglobal satd_8x8, 4, 5, 8
+    cglobal satd_8x8, 2, 5, 8, "p", org, "p", cur
 %endif
     
     ;Set arguments
@@ -502,9 +501,9 @@ cglobal satd_4x4, 2, 2, 6
 %macro KVZ_SATD_NXN 1
 
     %if ARCH_X86_64
-        cglobal satd_%1x%1, 2, 7, 16
+        cglobal satd_%1x%1, 2, 7, 16, "p", org, "p", cur
     %else
-        cglobal satd_%1x%1, 2, 7, 8
+        cglobal satd_%1x%1, 2, 7, 8, "p", org, "p", cur
     %endif
     
     ;Set arguments
