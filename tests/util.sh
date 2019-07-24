@@ -34,9 +34,9 @@ valgrind_test() {
 
     prepare "${dimensions}" "${frames}"
 
+# run tests without valgrind since it's not available everywhere and instruction set support is incomplete
     print_and_run \
         libtool execute \
-            valgrind --leak-check=full --error-exitcode=1 -- \
             ../src/kvazaar -i "${yuvfile}" "--input-res=${dimensions}" -o "${hevcfile}" "$@"
 
     print_and_run \
